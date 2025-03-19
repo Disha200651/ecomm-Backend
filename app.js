@@ -4,7 +4,7 @@ const {User}= require('./Model/User');
 const mongoose = require('mongoose');
 const cors= require('cors');
 const morgan=require('morgan');
-const bcrypt= require('bcrypt');
+const bcrypt= require('bcryptjs');
 const jwt= require('jsonwebtoken');
 const {Product}= require('./Model/Product');
 const {Cart}= require('./Model/Cart');
@@ -14,8 +14,10 @@ app.use(express.json())
 app.use(cors())
 app.use(morgan('dev'))
 
+//vXpeqocA56kHVdSz
+let mongodb_url="mongodb+srv://disharakkasagimath:vXpeqocA56kHVdSz@cluster0.g0nuy.mongodb.net/?retryWrites=true&w=majority"
 
-mongoose.connect('mongodb://127.0.0.1:27017/kleProject')
+mongoose.connect(mongodb_url)
 .then(()=>{
     console.log("Database is connected")
 }).catch((err)=>{
@@ -137,7 +139,7 @@ app.post('/add-product',async(req,res)=>{
             price,
             stock,
             brand,
-            uer:user._id
+            user:user._id
         })
         return res.status(201).json({
             message:"Product created successfully",
